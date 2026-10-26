@@ -26,7 +26,7 @@ services:
     volumes: ['/:/host:ro,rslave']
     restart: unless-stopped
   cadvisor:
-    image: ghcr.io/google/cadvisor:v0.52.1
+    image: gcr.io/cadvisor/cadvisor:v0.52.1
     volumes:
       - '/:/rootfs:ro'
       - '/var/run:/var/run:ro'
