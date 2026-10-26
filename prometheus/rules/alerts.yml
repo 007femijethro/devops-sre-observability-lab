@@ -1,0 +1,17 @@
+groups:
+  - name: sre-lab
+    rules:
+      - alert: ExporterDown
+        expr: up{job=~"node|cadvisor"} == 0
+        for: 2m
+        labels: {severity: warning}
+        annotations:
+          summary: "Exporter unavailable: {{ $labels.job }}"
+          description: "Inspect container health and network connectivity."
+      - alert: SyntheticProbeFailed
+        expr: probe_success{job="blackbox_http"} == 0
+        for: 2m
+        labels: {severity: critical}
+        annotations:
+          summary: "Synthetic HTTP probe failed: {{ $labels.instance }}"
+          description: "Check target status, DNS, TLS and upstream connectivity."
